@@ -31,7 +31,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="../templates/index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for ('index') }}">Home</a></li>
                         </ul>
                     </div> 
                 </div>
@@ -49,7 +49,7 @@
                     <div class="col-lg-6 offset-lg-6 col-xl-5 offset-xl-7">
                         <div class="banner_content">
                             <h3> Confirm the uniquness of your password</h3>
-                            <a class="banner_btn" href="#mc_embed_signup"> Test your password here <i class="ti-arrow-right"></i></a>
+                            <a class="banner_btn" href="#mc_embed_signup"> Check your password here <i class="ti-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -57,7 +57,8 @@
             </div>
         </div>
     </section>
-    <!--================End Home Banner Area =================--><section class="service-area area-padding">
+    <!--================End Home Banner Area =================-->
+    <section class="service-area area-padding">
         <div class="container">
             <div class="row">
                 <!-- Single service -->
@@ -116,10 +117,9 @@
                 </div>
                 <h4> Confirm your password here: </h4>
                     <div class="form-wrap" id="mc_embed_signup">
-                        <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                        method="get">
+                        <form action="/passwordcheck" method="post">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="text" placeholder="Your Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Password '">
+                            <input type="text" name="password" class="form-control" placeholder="Your Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Password '">
                             <div class="input-group-append">
                                 <button class="btn click-btn" type="submit">
                                     <i class="fab fa-telegram-plane"></i>
