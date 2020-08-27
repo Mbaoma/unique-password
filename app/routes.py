@@ -4,8 +4,7 @@ from script import check_password
 #define the routes
 app = Flask(__name__,
         template_folder = '../templates',
-        static_folder = '../static')960b6ea354a4
-
+        static_folder = '../static')
 @app.route("/")
 def home():
     return render_template('home.html')
