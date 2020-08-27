@@ -1,24 +1,37 @@
-from flask import Flask, jsonify, render_template, request
-from pwned import check_pwned
+from flask import *
+from script import check_password
 
-app = Flask(__name__)
+#define the routes
+app = Flask(__name__,
+        template_folder = '../templates',
+        static_folder = '../static')
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    result = None
+@app.route("/")
+def home():
+    return render_template('home.html')
+
+@app.route("/confirmation")
+def confirmation():
+    return render_template('confirmation.html')
+
+@app.route("/check/<password>") 
+def check(password):
+    result = None 
     password = request.form.get("password", None)
-    if password:
-        r = check_pwned(password)
-        if r["success"]:
-            result = "Your password has been breached {:,} times".format(r["count"])
-        else:
-            result = "An error occured while checking your password. Please try again later"
-    return render_template("../templates/index.html", result=result)
+    r = check_password(password) 
 
-@app.route("/check_pwned/<password>")
-def pwned(password):
-    r = check_pwned(password)
-    return jsonify(r)
+@app.route('/check', methods=["GET", "POST"])
+def checkin():
+    result = None 
+    password = request.form.get("password", None)
+    
+    r = check_password(password) 
+    if r["success"] == True and r["count"] == 0:
+        result = 'Your password has been breached {: } times'.format(r['count'])
+        return render_template('confirmation.html', result=result)
+    else:
+        return redirect("/")
+    return render_template('home.html', result=result)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
