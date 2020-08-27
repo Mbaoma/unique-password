@@ -29,7 +29,8 @@ def checkin():
 		result = 'Your password has been breached {: } times'.format(r['count'])
 		return render_template('confirmation.html', result=result)
 	else:
-		return redirect("/")
+		result = 'Your password has been breached {: } times'.format(r['count'])
+		return render_template('confirmation.html', result=result)
 	return render_template('home.html', result=result)
 
 if __name__ == "__main__":
