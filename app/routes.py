@@ -1,35 +1,37 @@
-import requests
-import hashlib
+from flask import *
+from script import check_password
 
-def check_password(password):
-	#get the hash of the input
-	sha1_password = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
-	#due to k anonimity, we grab the first 5 characters of our hashed password in one variable
-	#and the rest in another variable
-	head,tail = sha1_password[:5], sha1_password[5:]
-	#print(head)
-	try:
-		api = 'https://api.pwnedpasswords.com/range/' + head
-		response = requests.get(api)
-		#print(response.text)
-		if response.status_code != 200:
-			raise Exception
-	except:
-		return {'success': 'Failed'}
+#define the routes
+app = Flask(__name__,
+        template_folder = 'templates',
+        static_folder = 'static')
 
-	#we define our success message to display if our password has been hasned and its count to show how many times it has been breached
-	status = {
-							'success': True,
-							'count': 0
-						}
+@app.route("/")
+def home():
+    return render_template('home.html')
 
-	#we split the hashes at each line break
-	for i in response.text.split("\n"):
-		#we further split the hashes at the ":", giving us the count as the 1th item
-		j= i.split(":")
-		#we compare the first part of the split done above with the tail of our hashed password
-		if j[0] == tail:
-			#if the value of j[0] matches the tail of our hashed password, we update our status
-			status["count"] = int(j[1])
-	print(status)
-check_password(input('enter a test password: '))
+@app.route("/confirmation")
+def confirmation():
+	return render_template('confirmation.html')
+
+@app.route("/check/<password>") 
+def check(password):
+	result = None 
+	password = request.form.get("password", None)
+	r = check_password(password) 
+
+@app.route('/check', methods=["GET", "POST"])
+def checkin():
+	result = None 
+	password = request.form.get("password", None)
+	
+	r = check_password(password) 
+	if r["success"] == True and r["count"] == 0:
+		result = 'Your password has been breached {: } times'.format(r['count'])
+		return render_template('confirmation.html', result=result)
+	else:
+		return redirect("/")
+	return render_template('home.html', result=result)
+
+if __name__ == "__main__":
+    app.run()
