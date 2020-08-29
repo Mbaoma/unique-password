@@ -23,14 +23,14 @@ def check(password):
 def checkin():
 	result = None 
 	password = request.form.get("password", None)
-	
-	r = check_password(password) 
-	if r["success"] == True and r["count"] == 0:
-		result = 'Your password has been breached {: } times'.format(r['count'])
-		return render_template('confirmation.html', result=result)
-	else:
-		result = 'Your password has been breached {: } times'.format(r['count'])
-		return render_template('confirmation.html', result=result)
+	r = check_password(password)
+	if password: 
+		if r["success"] == True and r["count"] == 0:
+			result = 'Your password has been breached {: } times'.format(r['count'])
+			return render_template('confirmation.html', result=result)
+		else:
+			result = 'Your password has been breached {: } times'.format(r['count'])
+			return render_template('confirmation.html', result=result)
 	return render_template('home.html', result=result)
 
 if __name__ == "__main__":
