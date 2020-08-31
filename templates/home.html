@@ -119,7 +119,8 @@
                     <form action="/check" method="post">
                         <div class="form-wrap" id="signup">
                             <div class="input-group">
-                            <input type="text" name="password" class="form-control" placeholder="Your Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Password '">
+                            <input required oninvalid="this.setCustomValidity('Please Enter password')"
+                            oninput="setCustomValidity('')" type="text" name="password" class="form-control" placeholder="Your Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Password '">
                             <div class="input-group-append">
                                 <button class="btn click-btn" type="submit">
                                     <i class="fab fa-telegram-plane"></i>
@@ -145,7 +146,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 
                 <div class="service-content">
                     <h6> Kindly visit my blog! </h6>
-                   <a href="greyhatcommunity.blogspot.com"> <i class= "fa fa-rss-square" aria-hidden="true"> </i></a>
+                   <a href="https://greyhatcommunity.blogspot.com"> <i class= "fa fa-rss-square" aria-hidden="true"> </i></a>
                         
             </div>
         </div>
