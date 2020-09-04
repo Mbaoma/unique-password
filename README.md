@@ -24,8 +24,10 @@ We also provide articles conserning cyber security for our users to read through
 
 ![image](https://user-images.githubusercontent.com/49791498/91897717-9c4e9f00-ec92-11ea-8163-c8cd7c02ebc5.png)
 
+# The website
 The website **unikpasswords** is hosted [here](https://unikpasswords.herokuapp.com/)
 
+# Languages Used
 The website is hosted on Heroku and built with **Flask and a template was used for the front end.**
 
 Thank you Solomon and Olamide for helping me with the UI of this website and your support!
